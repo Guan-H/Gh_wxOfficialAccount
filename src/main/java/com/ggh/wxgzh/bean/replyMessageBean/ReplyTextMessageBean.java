@@ -1,4 +1,4 @@
-package com.ggh.wxgzh.bean;
+package com.ggh.wxgzh.bean.replyMessageBean;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.Data;
  */
 @Data
 @XStreamAlias("xml")
-public class wxRespondUserTextInfo {
+public class ReplyTextMessageBean {
 
     /**
      * 接收方账号（收到的OpenID）

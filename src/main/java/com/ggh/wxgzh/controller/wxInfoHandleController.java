@@ -3,14 +3,12 @@ package com.ggh.wxgzh.controller;
 
 import cn.hutool.http.HttpUtil;
 import com.ggh.wxgzh.bean.wxBean;
-import com.ggh.wxgzh.bean.wxRequestUserTextInfo;
-import com.ggh.wxgzh.bean.wxRespondUserTextInfo;
-import com.ggh.wxgzh.common.XmlToJavaBean;
+import com.ggh.wxgzh.bean.receiveMessageBean.ReceivedTextMessageBean;
+import com.ggh.wxgzh.bean.replyMessageBean.ReplyTextMessageBean;
 import com.ggh.wxgzh.service.wxIService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -75,10 +73,10 @@ public class wxInfoHandleController {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(inputStream);
-        wxRequestUserTextInfo wxRequestUserTextInfo = XmlConvert_wxRequestUserTextInfo(document);
-        log.info("requestInfo:{}", wxRequestUserTextInfo);
+        ReceivedTextMessageBean ReceivedTextMessageBean = XmlConvert_wxRequestUserTextInfo(document);
+        log.info("requestInfo:{}", ReceivedTextMessageBean);
         inputStream.close();
-        wxRespondUserTextInfo resp = wxService.handleRequest(wxRequestUserTextInfo);
+        ReplyTextMessageBean resp = wxService.handleRequest(ReceivedTextMessageBean);
         //将处理完成的对象转换成XML格式发回给微信服务器
         return wxRespondUserTextInfoConvert_Xml(resp);
     }

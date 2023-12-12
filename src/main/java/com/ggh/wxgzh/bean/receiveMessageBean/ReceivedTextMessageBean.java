@@ -1,17 +1,14 @@
-package com.ggh.wxgzh.bean;
+package com.ggh.wxgzh.bean.receiveMessageBean;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.springframework.data.repository.query.Param;
-
-import javax.xml.bind.annotation.XmlElement;
 
 /**
- *  用于接收微信用户向公众账号发消息的对象
+ *  用于接收微信用户发来的文本(TEXT)信息
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class wxRequestUserTextInfo {
+public class ReceivedTextMessageBean {
 
 
     /**

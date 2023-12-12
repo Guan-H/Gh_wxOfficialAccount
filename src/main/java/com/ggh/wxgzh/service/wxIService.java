@@ -2,10 +2,9 @@ package com.ggh.wxgzh.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ggh.wxgzh.bean.wxBean;
-import com.ggh.wxgzh.bean.wxRequestUserTextInfo;
-import com.ggh.wxgzh.bean.wxRespondUserTextInfo;
-import com.ggh.wxgzh.mapper.wxMapper;
+import com.ggh.wxgzh.bean.receiveMessageBean.ReceivedTextMessageBean;
+import com.ggh.wxgzh.bean.replyMessageBean.ReplyTextMessageBean;
 
 public interface wxIService extends IService<wxBean> {
-    wxRespondUserTextInfo handleRequest(wxRequestUserTextInfo wxRequestUserTextInfo);
+    ReplyTextMessageBean handleRequest(ReceivedTextMessageBean ReceivedTextMessageBean);
 }

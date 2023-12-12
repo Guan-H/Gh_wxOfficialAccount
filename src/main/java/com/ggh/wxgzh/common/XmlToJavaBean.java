@@ -1,23 +1,17 @@
 package com.ggh.wxgzh.common;
 
-import com.ggh.wxgzh.bean.wxRequestUserTextInfo;
+import com.ggh.wxgzh.bean.receiveMessageBean.ReceivedTextMessageBean;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
 public class XmlToJavaBean {
 
 
-    public static wxRequestUserTextInfo XmlConvert_wxRequestUserTextInfo(Document document) throws IOException {
-        wxRequestUserTextInfo requestInfo = new wxRequestUserTextInfo();
+    public static ReceivedTextMessageBean XmlConvert_wxRequestUserTextInfo(Document document) throws IOException {
+        ReceivedTextMessageBean requestInfo = new ReceivedTextMessageBean();
 
         Element root = document.getDocumentElement();
 
