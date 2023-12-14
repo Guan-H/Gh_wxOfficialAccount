@@ -52,7 +52,7 @@ public class XmlToJavaBean {
     // 辅助方法，用于获取XML节点的值
     public static String getNodeValue(Element element, String tagName) {
         NodeList nodeList = element.getElementsByTagName(tagName);
-        if (nodeList != null && nodeList.getLength() > 0) {
+        if (nodeList.getLength() > 0) {
             return nodeList.item(0).getTextContent();
         }
         return null;

@@ -6,11 +6,14 @@ import com.ggh.wxgzh.bean.wxBean;
 import com.ggh.wxgzh.bean.receiveMessageBean.ReceivedTextMessageBean;
 import com.ggh.wxgzh.bean.replyMessageBean.ReplyTextMessageBean;
 import com.ggh.wxgzh.service.wxIService;
+import com.thoughtworks.xstream.XStream;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import javax.servlet.ServletInputStream;
@@ -20,9 +23,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.ggh.wxgzh.common.JavaBeanToXml.wxRespondUserTextInfoConvert_Xml;
 import static com.ggh.wxgzh.common.XmlToJavaBean.XmlConvert_wxRequestUserTextInfo;
+import static com.ggh.wxgzh.common.XmlToJavaBean.getNodeValue;
 import static com.ggh.wxgzh.common.checkWxInfo.wxCheck;
 
 @Slf4j
@@ -64,15 +69,23 @@ public class wxInfoHandleController {
     @PostMapping(value = "/")
     public String getUserReqInfo(HttpServletRequest request) throws IOException, ParserConfigurationException, SAXException {
         ServletInputStream inputStream = request.getInputStream();
-//        byte[] bytes = new byte[1024];
-//        int len = 0;
-//        while((len = inputStream.read(bytes)) != -1) {
-//            System.out.println(new String(bytes,0,len));
-//        }
         //微信服务端发来的XML格式信息转换成java对象
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document document = builder.parse(inputStream);
+        Element root = document.getDocumentElement();
+        String msgType = getNodeValue(root, "MsgType");
+        if(StringUtils.isNoneBlank(msgType)){
+            switch (msgType){
+                case "text":
+                    break;
+                case "image":
+                    break;
+                case "event":
+                    break;
+                default:break;
+            }
+        }
         ReceivedTextMessageBean ReceivedTextMessageBean = XmlConvert_wxRequestUserTextInfo(document);
         log.info("requestInfo:{}", ReceivedTextMessageBean);
         inputStream.close();
