@@ -44,7 +44,6 @@ public class XmlToJavaBean {
             // 处理节点值为空的情况，例如设置默认值或抛出异常
             requestInfo.setIdx(-1);
         }
-
         return requestInfo;
 
     }

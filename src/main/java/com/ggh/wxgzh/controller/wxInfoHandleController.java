@@ -80,9 +80,9 @@ public class wxInfoHandleController {
             switch (msgType){
                 case "text":
                     ReceivedTextMessageBean ReceivedTextMessageBean = XmlConvert_wxRequestUserTextInfo(document);
-                    //获取响应消息对象
-                    ReplyTextMessageBean replyTextMessageBean = wxService.handleRequest(ReceivedTextMessageBean);
                     log.info("requestInfo:{}", ReceivedTextMessageBean);
+                    //处理客户端发来的信息
+                    ReplyTextMessageBean replyTextMessageBean = wxService.handleRequest(ReceivedTextMessageBean);
                      xml = wxRespondUserTextInfoConvert_Xml(replyTextMessageBean);
                     break;
                 case "image":
