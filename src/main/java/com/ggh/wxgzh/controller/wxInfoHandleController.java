@@ -75,9 +75,15 @@ public class wxInfoHandleController {
         Document document = builder.parse(inputStream);
         Element root = document.getDocumentElement();
         String msgType = getNodeValue(root, "MsgType");
+        String xml = "";
         if(StringUtils.isNoneBlank(msgType)){
             switch (msgType){
                 case "text":
+                    ReceivedTextMessageBean ReceivedTextMessageBean = XmlConvert_wxRequestUserTextInfo(document);
+                    //获取响应消息对象
+                    ReplyTextMessageBean replyTextMessageBean = wxService.handleRequest(ReceivedTextMessageBean);
+                    log.info("requestInfo:{}", ReceivedTextMessageBean);
+                     xml = wxRespondUserTextInfoConvert_Xml(replyTextMessageBean);
                     break;
                 case "image":
                     break;
@@ -86,12 +92,10 @@ public class wxInfoHandleController {
                 default:break;
             }
         }
-        ReceivedTextMessageBean ReceivedTextMessageBean = XmlConvert_wxRequestUserTextInfo(document);
-        log.info("requestInfo:{}", ReceivedTextMessageBean);
+        //关闭流
         inputStream.close();
-        ReplyTextMessageBean resp = wxService.handleRequest(ReceivedTextMessageBean);
         //将处理完成的对象转换成XML格式发回给微信服务器
-        return wxRespondUserTextInfoConvert_Xml(resp);
+        return xml;
     }
 
 
